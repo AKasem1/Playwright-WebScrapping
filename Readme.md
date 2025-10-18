@@ -1,7 +1,92 @@
-Playwright Web Scraping ExamplesThis repository contains two Python scripts demonstrating web scraping and automation using the Playwright library. Each script showcases a different use case: one for searching and downloading files, and another for browsing with a proxy.PrerequisitesBefore running these scripts, you need to have Python and Playwright installed.Install Python: Make sure you have Python 3.7+ installed.Install Playwright: Install the library using pip.pip install playwright
-Install Browsers: Playwright requires browser binaries to be installed. Run the following command to download them (Chromium, Firefox, WebKit).playwright install
-File Explanations1. quickstart.py - Searching and Downloading PDFsThis script automates the process of searching for academic papers on arxiv.org and downloading the resulting PDF files.Workflow:Launch Browser: Starts a new Chromium browser instance in non-headless mode so you can watch the automation.Navigate: Opens the search page at https://arxiv.org/search.Perform Search: Finds the search input field, types "quantum computing", and clicks the search button.Extract Links: Once the search results page loads, it locates all links that point directly to a PDF file.Download Files:It creates a new directory named data if it doesn't already exist.It loops through each PDF link and downloads the file into the data directory.Capture and Close: The script takes a screenshot of the final page (arxiv_search.png) and then closes the browser.2. passCaptcha.py - Browsing with a ProxyThis script demonstrates how to configure Playwright to use a proxy server. This is a common technique used to avoid IP-based blocking, bypass CAPTCHAs, or access geo-restricted content by routing traffic through a third-party service like Bright Data.Workflow:Configure Proxy: A dictionary proxy holds the server address, username, and password for the proxy service.Launch Browser with Proxy: It starts a Chromium browser instance that is configured to route all its network traffic through the specified proxy server.Navigate: The script opens http://walmart.com, a major e-commerce site that often employs sophisticated bot detection.Perform Search: It locates the main search bar on the Walmart homepage, types in "testing", and submits the search.Close: Finally, the browser is closed.How to Run the ScriptsEnsure you have completed the steps in the Prerequisites section.Open your terminal or command prompt.Navigate to the directory containing the files.Run a script by executing it with Python:# To run the arXiv PDF downloader
+# Playwright Web Scraping Examples
+
+A small collection of Python scripts demonstrating web automation and scraping with Playwright.  
+Two focused examples are included:
+
+- `quickstart.py` — search arXiv and download PDFs
+- `passCaptcha.py` — browse via a proxy (example workflow for proxy usage)
+
+---
+
+## Table of contents
+
+- [Prerequisites](#prerequisites)  
+- [Install](#install)  
+- [Usage](#usage)  
+- [Scripts](#scripts)  
+    - [`quickstart.py`](#quickstartpy---searching-and-downloading-pdfs)  
+    - [`passCaptcha.py`](#passcaptchapy---browsing-with-a-proxy)  
+- [Notes](#notes)  
+- [Contributing](#contributing)
+
+---
+
+## Prerequisites
+
+- Python 3.7+
+- pip
+
+Playwright requires browser binaries (Chromium, Firefox, WebKit) which must be installed after installing the Python package.
+
+---
+
+## Install
+
+Run the following commands:
+
+```bash
+pip install playwright
+playwright install
+```
+
+If you use a virtual environment, activate it first.
+
+---
+
+## Usage
+
+Open a terminal, cd to the repository directory and run one of the scripts:
+
+```bash
+# To run the arXiv PDF downloader
 python quickstart.py
 
 # To run the proxy browsing example
 python passCaptcha.py
+```
+
+---
+
+## Scripts
+
+### quickstart.py — Searching and Downloading PDFs
+
+Purpose: Automates searching arXiv and downloading result PDFs.
+
+Workflow:
+- Launches a Chromium browser (non-headless by default so you can observe actions).
+- Navigates to https://arxiv.org/search.
+- Enters a query (for example, "quantum computing") and submits the search.
+- Parses the results page to find direct PDF links.
+- Creates a `data/` directory (if missing) and downloads each PDF there.
+- Takes a screenshot of the final page (`arxiv_search.png`) and closes the browser.
+
+Notes:
+- Adjust the search query and selectors as needed for reliability.
+- Consider adding polite delays and rate limiting when scraping.
+
+### passCaptcha.py — Browsing with a Proxy
+
+Purpose: Demonstrates configuring Playwright to use a proxy server.
+
+Workflow:
+- Configure proxy credentials and server in a dictionary (server, username, password).
+- Launches Chromium with proxy settings so traffic is routed through the proxy.
+- Navigates to http://walmart.com and performs a simple search (example: "testing").
+- Closes the browser.
+
+Notes:
+- Use reputable proxy providers and follow their usage terms.
+- Proxying may help avoid simple IP blocks but does not guarantee bypassing advanced bot protections or CAPTCHAs.
+
+---
