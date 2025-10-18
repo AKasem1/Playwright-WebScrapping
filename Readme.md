@@ -16,8 +16,6 @@ Two focused examples are included:
 - [Scripts](#scripts)  
     - [`quickstart.py`](#quickstartpy---searching-and-downloading-pdfs)  
     - [`passCaptcha.py`](#passcaptchapy---browsing-with-a-proxy)  
-- [Notes](#notes)  
-- [Contributing](#contributing)
 
 ---
 
@@ -88,5 +86,34 @@ Workflow:
 Notes:
 - Use reputable proxy providers and follow their usage terms.
 - Proxying may help avoid simple IP blocks but does not guarantee bypassing advanced bot protections or CAPTCHAs.
+
+### rotating_proxies/ — Proxy Validation and Management
+
+Purpose: Provides tools for validating and managing a list of proxy servers.
+
+Components:
+- `check_proxies.py`: Multi-threaded script to validate proxy servers
+- `proxies_list.txt`: Input file containing list of proxy servers to check
+- `valid_proxies.txt`: Output file containing validated working proxies
+- `main.py`: Main script for proxy rotation implementation
+
+Workflow:
+1. Add your proxy servers to `proxies_list.txt` (one per line)
+2. Run `check_proxies.py` to validate proxies:
+   - Creates 10 threads to check proxies concurrently
+   - Tests each proxy against ipinfo.io
+   - Valid proxies that return 200 status are saved
+3. Use the validated proxies in your automation scripts
+
+Usage:
+```bash
+cd rotating_proxies
+python check_proxies.py
+```
+
+Notes:
+- Ensures only working proxies are used in your automation
+- Multi-threading speeds up the validation process
+- Regular validation helps maintain a healthy proxy pool
 
 ---
